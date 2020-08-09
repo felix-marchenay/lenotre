@@ -2,21 +2,26 @@ import { Authorization } from "./Calendar/Authentification";
 import { Calendrier } from "./Calendar/Calendrier";
 import { OAuth2Client } from "google-auth-library";
 import { Arrosage } from "./Calendar/Arrosage";
-import NodeCache from "node-cache";
+import { Arrosoir } from "./Arrosoir";
 
 (new Authorization).authorize().then((oauth: OAuth2Client) => {
     const calendrier = new Calendrier(oauth);
     
-    calendrier.prochainArrosage().then((arrosage: Arrosage) => {
-        console.log(arrosage);
+    calendrier.arrosagesDuJour().then((arrosages: Array<Arrosage>) => {
 
-        if (arrosage.start < new Date) {
+        console.log(arrosages);
 
-            const cache = new NodeCache();
+        const aTraiter = arrosages.filter((arrosage: Arrosage) => arrosage.aTraiter);
 
-            const found = cache.get(arrosage.id);
+        if (aTraiter.length > 0) {
+            // arroser
+            const arrosoir = new Arrosoir;
 
-            console.log('aze', found);
+            console.log(aTraiter);
+
+            calendrier.setDone(aTraiter);
+        } else {
+            console.log('Aucun arrosage à traiter');
         }
     });
 });

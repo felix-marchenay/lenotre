@@ -8,7 +8,7 @@ export class Authorization
     constructor(
         private credentialsPath: string = 'credentials.json',
         private tokenPath: string = 'token.json',
-        private scopes: Array<string> = ['https://www.googleapis.com/auth/calendar.readonly']
+        private scopes: Array<string> = ['https://www.googleapis.com/auth/calendar.events']
     ){}
 
     public async authorize(): Promise<OAuth2Client> {
