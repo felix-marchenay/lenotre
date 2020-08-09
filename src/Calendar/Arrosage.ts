@@ -25,7 +25,6 @@ export class Arrosage
 
     static fromPayload(payload): Arrosage
     {
-        console.log(payload);
         return new Arrosage(
             new Date(payload.start.dateTime),
             new Date(payload.end.dateTime),

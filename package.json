@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "googleapis": "^39.2.0",
-    "node-cache": "^5.1.2"
+    "node-cache": "^5.1.2",
+    "onoff": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^14.0.27"

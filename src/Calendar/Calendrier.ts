@@ -18,8 +18,6 @@ export class Calendrier
         minuitAujd.setHours(0);
         minuitAujd.setMinutes(0);
 
-        console.log(minuitAujd);
-
         return new Promise((resolve) => {
             this.calendar.events.list({
                 calendarId: this.calendrierId,
