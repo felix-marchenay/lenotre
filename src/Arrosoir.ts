@@ -11,6 +11,6 @@ export class Arrosoir
         setTimeout(() => {
             this.pompeOut.writeSync(0);
             console.log('Désactivation.');
-        }, 3000);    
+        }, 15000);
     }
 }

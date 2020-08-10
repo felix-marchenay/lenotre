@@ -6,8 +6,8 @@ import { Credentials, OAuth2Client } from "google-auth-library";
 export class Authorization
 {
     constructor(
-        private credentialsPath: string = 'credentials.json',
-        private tokenPath: string = 'token.json',
+        private credentialsPath: string = '/home/pi/lenotre/credentials.json',
+        private tokenPath: string = '/home/pi/lenotre/token.json',
         private scopes: Array<string> = ['https://www.googleapis.com/auth/calendar.events']
     ){}
 
