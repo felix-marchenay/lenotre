@@ -27,6 +27,9 @@ export class Calendrier
             }, (err, res) => {
 
                 console.log(res.data.items);
+                resolve(
+                    res.data.items.map(payload => Arrosage.fromPayload(payload))
+                );
                 // this.calendar.events.list({
                 //     calendarId: this.calendrierId,
                 //     maxResults: 5,

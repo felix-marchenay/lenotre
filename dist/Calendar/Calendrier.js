@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Calendrier = void 0;
 var googleapis_1 = require("googleapis");
+var Arrosage_1 = require("./Arrosage");
 var Calendrier = /** @class */ (function () {
     function Calendrier(auth) {
         this.auth = auth;
@@ -21,6 +22,7 @@ var Calendrier = /** @class */ (function () {
                 timeMin: minuitAujd.toISOString()
             }, function (err, res) {
                 console.log(res.data.items);
+                resolve(res.data.items.map(function (payload) { return Arrosage_1.Arrosage.fromPayload(payload); }));
                 // this.calendar.events.list({
                 //     calendarId: this.calendrierId,
                 //     maxResults: 5,
