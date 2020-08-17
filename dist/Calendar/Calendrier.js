@@ -1,4 +1,11 @@
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Calendrier = void 0;
 var googleapis_1 = require("googleapis");
@@ -18,17 +25,27 @@ var Calendrier = /** @class */ (function () {
             _this.calendar.events.list({
                 calendarId: _this.calendrierId,
                 maxResults: 5,
-                // singleEvents: true,
+                singleEvents: false,
                 timeMin: minuitAujd.toISOString()
             }, function (err, res) {
-                resolve(res.data.items.map(function (payload) { return Arrosage_1.Arrosage.fromPayload(payload); }));
+                _this.calendar.events.list({
+                    calendarId: _this.calendrierId,
+                    maxResults: 5,
+                    singleEvents: true,
+                    timeMin: minuitAujd.toISOString()
+                }, function (err2, res2) {
+                    var events = __spreadArrays(res.data.items, res2.data.items);
+                    console.log(events.length + ' events total');
+                    console.log(events);
+                    resolve(events.map(function (payload) { return Arrosage_1.Arrosage.fromPayload(payload); }));
+                });
             });
         });
     };
     Calendrier.prototype.setDone = function (arrosages) {
         var _this = this;
         arrosages.forEach(function (arrosage) {
-            _this.calendar.events.update({
+            _this.calendar.events.patch({
                 calendarId: _this.calendrierId,
                 eventId: arrosage.id,
                 requestBody: {

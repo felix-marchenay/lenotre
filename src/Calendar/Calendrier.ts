@@ -22,12 +22,22 @@ export class Calendrier
             this.calendar.events.list({
                 calendarId: this.calendrierId,
                 maxResults: 5,
-                // singleEvents: true,
+                singleEvents: false,
                 timeMin: minuitAujd.toISOString()
             }, (err, res) => {
-                resolve(
-                    res.data.items.map(payload => Arrosage.fromPayload(payload))
-                );
+                this.calendar.events.list({
+                    calendarId: this.calendrierId,
+                    maxResults: 5,
+                    singleEvents: true,
+                    timeMin: minuitAujd.toISOString()
+                }, (err2, res2) => {
+                    const events = [...res.data.items, ...res2.data.items];
+                    console.log(events.length + ' events total');
+                    console.log(events);
+                    resolve(
+                        events.map(payload => Arrosage.fromPayload(payload))
+                    );
+                });
             });
         });
     }
@@ -35,7 +45,7 @@ export class Calendrier
     public setDone(arrosages: Array<Arrosage>): void
     {
         arrosages.forEach((arrosage: Arrosage) => {
-            this.calendar.events.update({
+            this.calendar.events.patch({
                 calendarId: this.calendrierId,
                 eventId: arrosage.id,
                 requestBody: {

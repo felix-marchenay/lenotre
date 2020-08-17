@@ -42,8 +42,6 @@ var fs = require("fs");
 var readline = require("readline");
 var Authorization = /** @class */ (function () {
     function Authorization(credentialsPath, tokenPath, scopes) {
-        if (credentialsPath === void 0) { credentialsPath = 'credentials.json'; }
-        if (tokenPath === void 0) { tokenPath = 'token.json'; }
         if (scopes === void 0) { scopes = ['https://www.googleapis.com/auth/calendar.events']; }
         this.credentialsPath = credentialsPath;
         this.tokenPath = tokenPath;
