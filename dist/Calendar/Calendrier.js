@@ -1,15 +1,7 @@
 "use strict";
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Calendrier = void 0;
 var googleapis_1 = require("googleapis");
-var Arrosage_1 = require("./Arrosage");
 var Calendrier = /** @class */ (function () {
     function Calendrier(auth) {
         this.auth = auth;
@@ -28,17 +20,20 @@ var Calendrier = /** @class */ (function () {
                 singleEvents: false,
                 timeMin: minuitAujd.toISOString()
             }, function (err, res) {
-                _this.calendar.events.list({
-                    calendarId: _this.calendrierId,
-                    maxResults: 5,
-                    singleEvents: true,
-                    timeMin: minuitAujd.toISOString()
-                }, function (err2, res2) {
-                    var events = __spreadArrays(res.data.items, res2.data.items);
-                    console.log(events.length + ' events total');
-                    console.log(events);
-                    resolve(events.map(function (payload) { return Arrosage_1.Arrosage.fromPayload(payload); }));
-                });
+                console.log(res.data.items);
+                // this.calendar.events.list({
+                //     calendarId: this.calendrierId,
+                //     maxResults: 5,
+                //     singleEvents: true,
+                //     timeMin: minuitAujd.toISOString()
+                // }, (err2, res2) => {
+                //     const events = [...res.data.items, ...res2.data.items];
+                //     console.log(events.length + ' events total');
+                //     console.log(events);
+                //     resolve(
+                //         events.map(payload => Arrosage.fromPayload(payload))
+                //     );
+                // });
             });
         });
     };

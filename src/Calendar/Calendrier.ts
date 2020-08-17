@@ -25,19 +25,21 @@ export class Calendrier
                 singleEvents: false,
                 timeMin: minuitAujd.toISOString()
             }, (err, res) => {
-                this.calendar.events.list({
-                    calendarId: this.calendrierId,
-                    maxResults: 5,
-                    singleEvents: true,
-                    timeMin: minuitAujd.toISOString()
-                }, (err2, res2) => {
-                    const events = [...res.data.items, ...res2.data.items];
-                    console.log(events.length + ' events total');
-                    console.log(events);
-                    resolve(
-                        events.map(payload => Arrosage.fromPayload(payload))
-                    );
-                });
+
+                console.log(res.data.items);
+                // this.calendar.events.list({
+                //     calendarId: this.calendrierId,
+                //     maxResults: 5,
+                //     singleEvents: true,
+                //     timeMin: minuitAujd.toISOString()
+                // }, (err2, res2) => {
+                //     const events = [...res.data.items, ...res2.data.items];
+                //     console.log(events.length + ' events total');
+                //     console.log(events);
+                //     resolve(
+                //         events.map(payload => Arrosage.fromPayload(payload))
+                //     );
+                // });
             });
         });
     }
