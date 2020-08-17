@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Authentification_1 = require("./Calendar/Authentification");
 var Calendrier_1 = require("./Calendar/Calendrier");
+var Arrosoir_1 = require("./Arrosoir");
+var onoff_1 = require("onoff");
 var dotenv_1 = require("dotenv");
 dotenv_1.config();
 console.log(new Date);
@@ -11,8 +13,8 @@ console.log(new Date);
         var aTraiter = arrosages.filter(function (arrosage) { return arrosage.aTraiter; });
         console.log(arrosages, aTraiter);
         if (aTraiter.length > 0) {
-            // const arrosoir = new Arrosoir(new Gpio(2, 'out'));
-            // arrosoir.run();
+            var arrosoir = new Arrosoir_1.Arrosoir(new onoff_1.Gpio(2, 'out'));
+            arrosoir.run();
             calendrier.setDone(aTraiter);
         }
         else {

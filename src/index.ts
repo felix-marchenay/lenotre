@@ -23,9 +23,9 @@ console.log(new Date);
 
         if (aTraiter.length > 0) {
             
-            // const arrosoir = new Arrosoir(new Gpio(2, 'out'));
+            const arrosoir = new Arrosoir(new Gpio(2, 'out'));
 
-            // arrosoir.run();
+            arrosoir.run();
 
             calendrier.setDone(aTraiter);
         } else {
