@@ -11,31 +11,19 @@ var Calendrier = /** @class */ (function () {
     }
     Calendrier.prototype.arrosagesDuJour = function () {
         var _this = this;
-        var minuitAujd = new Date();
-        minuitAujd.setHours(0);
-        minuitAujd.setMinutes(0);
+        var moins5H = new Date();
+        var plus5H = new Date();
+        moins5H.setHours(moins5H.getHours() - 5);
+        plus5H.setHours(plus5H.getHours() + 5);
         return new Promise(function (resolve) {
             _this.calendar.events.list({
                 calendarId: _this.calendrierId,
-                maxResults: 5,
-                singleEvents: false,
-                timeMin: minuitAujd.toISOString()
+                maxResults: 3,
+                singleEvents: true,
+                timeMin: moins5H.toISOString(),
+                timeMax: plus5H.toISOString()
             }, function (err, res) {
-                console.log(res.data.items);
                 resolve(res.data.items.map(function (payload) { return Arrosage_1.Arrosage.fromPayload(payload); }));
-                // this.calendar.events.list({
-                //     calendarId: this.calendrierId,
-                //     maxResults: 5,
-                //     singleEvents: true,
-                //     timeMin: minuitAujd.toISOString()
-                // }, (err2, res2) => {
-                //     const events = [...res.data.items, ...res2.data.items];
-                //     console.log(events.length + ' events total');
-                //     console.log(events);
-                //     resolve(
-                //         events.map(payload => Arrosage.fromPayload(payload))
-                //     );
-                // });
             });
         });
     };
